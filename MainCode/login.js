@@ -8,3 +8,43 @@ var firebaseConfig = {
   measurementId: "G-0YNBV3LZZL"
 };
 firebase.initializeApp(firebaseConfig);
+
+// Example: Handling login with email and password
+function handleLogin() {
+    var email = document.getElementById("email").value;
+    var password = document.getElementById("password").value;
+
+    firebase.auth().signInWithEmailAndPassword(email, password)
+        .then(function(userCredential) {
+            // User signed in successfully
+            var user = userCredential.user;
+            console.log("User logged in:", user.email);
+            // Redirect to dashboard or another page
+        })
+        .catch(function(error) {
+            // Handle login error
+            var errorCode = error.code;
+            var errorMessage = error.message;
+            console.error("Login error:", errorMessage);
+        });
+}
+
+// Example: Handling user registration
+function handleRegistration() {
+    var email = document.getElementById("email").value;
+    var password = document.getElementById("password").value;
+
+    firebase.auth().createUserWithEmailAndPassword(email, password)
+        .then(function(userCredential) {
+            // New user registered successfully
+            var user = userCredential.user;
+            console.log("User registered:", user.email);
+            // Redirect to profile setup or another page
+        })
+        .catch(function(error) {
+            // Handle registration error
+            var errorCode = error.code;
+            var errorMessage = error.message;
+            console.error("Registration error:", errorMessage);
+        });
+}
