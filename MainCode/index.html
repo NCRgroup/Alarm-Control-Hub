@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link rel="stylesheet" href="style.css">
-<title>NCR Alarm Hub</title>
-<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <title>NCR Alarm Hub</title>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
 </head>
-  <style>
+<style>
+ <style>
     @import url(https://fonts.googleapis.com/css?family=Roboto:300);
 header .header{
   background-color: #fff;
@@ -86,25 +87,85 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
   </style>
+</style>
 <body>
-
-  <body>
     <div class="login-page">
-      <div class="form">
-        <div class="login">
-          <div class="login-header">
-            <h3>LOGIN</h3>
-            <p>Please enter your credentials to login.</p>
-          </div>
+        <div class="form">
+            <div class="login">
+                <div class="login-header">
+                    <h3>LOGIN</h3>
+                    <p>Please enter your credentials to login.</p>
+                </div>
+                <!-- Login form -->
+                <input type="email" id="login-email" placeholder="Email">
+                <input type="password" id="login-password" placeholder="Password">
+                <button onclick="handleLogin()">Login</button>
+            </div>
+            <div class="signup">
+                <div class="signup-header">
+                    <h3>SIGN UP</h3>
+                    <p>Create a new account.</p>
+                </div>
+                <!-- Signup form -->
+                <input type="email" id="signup-email" placeholder="Email">
+                <input type="password" id="signup-password" placeholder="Password">
+                <button onclick="handleSignup()">Sign Up</button>
+            </div>
         </div>
-        <form class="login-form">
-          <input type="text" placeholder="username"/>
-          <input type="password" placeholder="password"/>
-          <button>login</button>
-          <p class="message">Not registered? <a href="#">Create an account</a></p>
-        </form>
-      </div>
     </div>
-</body>
+
+    <script>
+        // Initialize Firebase (use your own config)
+        var firebaseConfig = {
+           apiKey: "AIzaSyCnVJx2wX0x6VN339h1yTlxNrtLN5MAfRg",
+    authDomain: "ncr-alarm-hub-login.firebaseapp.com",
+    projectId: "ncr-alarm-hub-login",
+    storageBucket: "ncr-alarm-hub-login.appspot.com",
+    messagingSenderId: "517102115945",
+    appId: "1:517102115945:web:980c6a8
+        };
+        firebase.initializeApp(firebaseConfig);
+
+        // Handle login
+        function handleLogin() {
+            var email = document.getElementById("login-email").value;
+            var password = document.getElementById("login-password").value;
+
+            firebase.auth().signInWithEmailAndPassword(email, password)
+                .then(function(userCredential) {
+                    // User signed in successfully
+                    var user = userCredential.user;
+                    console.log("User logged in:", user.email);
+                    // Redirect to dashboard or another page
+                })
+                .catch(function(error) {
+                    // Handle login error
+                    var errorCode = error.code;
+                    var errorMessage = error.message;
+                    console.error("Login error:", errorMessage);
+                });
+        }
+
+        // Handle signup
+        function handleSignup() {
+            var email = document.getElementById("signup-email").value;
+            var password = document.getElementById("signup-password").value;
+
+            firebase.auth().createUserWithEmailAndPassword(email, password)
+                .then(function(userCredential) {
+                    // New user registered successfully
+                    var user = userCredential.user;
+                    console.log("User registered:", user.email);
+                    // Redirect to profile setup or another page
+                })
+                .catch(function(error) {
+                    // Handle registration error
+                    var errorCode = error.code;
+                    var errorMessage = error.message;
+                    console.error("Registration error:", errorMessage);
+                });
+        }
+    </script>
 </body>
 </html>
+
